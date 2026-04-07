@@ -36,10 +36,22 @@ Xcode 支持配置外部模型提供者使用 AI 辅助编程。在 Xcode Settin
 
 ## 快速开始
 
-### 1. 编译
+### 1. 安装
+
+从 [Releases](https://github.com/cicbyte/glm-coding-xcode-proxy/releases) 下载最新版本，赋予执行权限并移动到 PATH 中：
 
 ```bash
+chmod +x glm_coding_xcode_proxy
+sudo mv glm_coding_xcode_proxy /usr/local/bin/
+```
+
+或者从源码编译：
+
+```bash
+git clone https://github.com/cicbyte/glm-coding-xcode-proxy.git
+cd glm-coding-xcode-proxy
 cargo build --release
+sudo cp target/release/glm_coding_xcode_proxy /usr/local/bin/
 ```
 
 ### 2. 配置 API Key
@@ -199,10 +211,13 @@ curl http://localhost:8890/v1/chat/completions \
 
 ## 注意事项
 
-1. **API Key 安全**：配置文件存储在 `~/.glm-coding-xcode-proxy/config`，注意保护权限。
-2. **修改配置后需重启服务**：`glm_coding_xcode_proxy service stop && glm_coding_xcode_proxy service start`
-3. **端口冲突**：通过 `--port` 参数或 `config set PORT <端口>` 修改。
-4. **服务保活**：plist 中配置了 `KeepAlive`，服务异常退出后会自动重启。
+1. **macOS 安全提示**：下载的二进制文件首次运行会被 macOS 拦截，需手动放行：
+   - **系统设置 → 隐私与安全性**：点击"仍要打开"
+   - **系统设置 → 通用 → 登录项与扩展 → 后台活动**：找到 `glm_coding_xcode-proxy`，点击"允许"
+2. **API Key 安全**：配置文件存储在 `~/.glm-coding-xcode-proxy/config`，注意保护权限。
+3. **修改配置后需重启服务**：`glm_coding_xcode_proxy service stop && glm_coding_xcode_proxy service start`
+4. **端口冲突**：通过 `--port` 参数或 `config set PORT <端口>` 修改。
+5. **服务保活**：plist 中配置了 `KeepAlive`，服务异常退出后会自动重启。
 
 ## 项目结构
 
